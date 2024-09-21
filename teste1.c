@@ -1,4 +1,4 @@
-// Trabalho de Multiplicação de Matrizes - Camily 2024001197 e Pedro
+// Trabalho de Multiplicação de Matrizes - Camily e Pedro
 
 #include <stdio.h>
 #include <stdlib.h>
