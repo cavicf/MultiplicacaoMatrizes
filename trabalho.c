@@ -122,7 +122,7 @@ void multiplicar_matriz(pixel **imagem, pixel **filtro, pixel **resultado, int n
     }
 }
 
-
+//Aqui é crição da função que imprime o resultado final da multiplicação
 void imprimir_resultado(pixel **resultado, char *formato, int n, int escala){
     printf("%s\n", formato);
     printf("%d %d\n", n, n);
@@ -135,17 +135,16 @@ void imprimir_resultado(pixel **resultado, char *formato, int n, int escala){
     }
 }
 
-/* Funcao para liberar a memoria das matrizes, ele libera linha por linha e quando chega na ultima ele
-libera a matriz como um todo, que eh o que restou*/
+//Aqui criamos a função para liberar a memória alocada das matrizes, fizemos ela de forma recursiva
 void liberar_memoria(pixel **matriz, int n, int i)
 {
-    //caso base, o indice começa no 0 e quando for igual ao valor da linha ele libera a matriz geral
+    //no nosso caso base, o indice começa no 0 e quando for igual ao valor da linha ele libera a matriz geral
     if(i == n)
     {
         free(matriz);
         return;
     }
-    //liberando linha por linha e cada pixel
+    //aqui libera linha por linha
     free(matriz[i]);
     //utilizando a recursividade para liber todas as linhas
     liberar_memoria(matriz, n, i + 1);
