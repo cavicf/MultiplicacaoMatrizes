@@ -60,23 +60,63 @@ pixel **criar_mresultado(int n){
     return matriz;
 }
 
+/* Funcao para liberar a memoria das matrizes, ele libera linha por linha e quando chega na ultima ele
+libera a matriz como um todo, que eh o que restou*/
+void liberar_memoria(pixel **matriz, int n, int i)
+{
+    //caso base, o indice começa no 0 e quando for igual ao valor da linha ele libera a matriz geral
+    if(i == n)
+    {
+        free(matriz);
+        return;
+    }
+    //liberando linha por linha e cada pixel
+    free(matriz[i]);
+    //utilizando a recursividade para liber todas as linhas
+    liberar_memoria(matriz, n, i + 1);
+}
+
 //-----------------------------------------------------------------------------
 //MAIN
-int main(int argc, char *argv[]){
+int main(){
 
 //Aqui temos os 3 primeiros dados de entrada padrão da imagem PPM
     char formato[3];
     int n;
+    int escala;
     scanf("%s", formato);
     scanf("%d %d", &n, &n);
+    scanf("%d", &escala);
     
 
 //Agora vamos criar as matrizes através da função que vai alocar essas matrizes dinamicamente e preencher, como a função devolve o endereço de memória de onde a matriz foi alocada, a chamada da função é feita com ponteiros para aponter para estes locais da memória
-    pixel **imagem = criar_matriz(n);
-    pixel **filtro = criar_matriz(n);
-// a matriz do resultado tivemos que alocar em uma função separada pois ela n será preenchida como as outras
-    pixel **resultado = criar_mresultado(n);
+    pixel **imagem = NULL;
+    pixel **filtro = NULL;
 
+    imagem = criar_matriz(n);
+    filtro = criar_matriz(n);
+    
+// a matriz do resultado tivemos que alocar em uma função separada pois ela n será preenchida como as outras
+    //pixel **resultado = criar_mresultado(n);
+    printf("1\n");
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            printf("%d %d %d ", imagem[i][j].px1, imagem[i][j].px2, imagem[i][j].px3);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    printf("2\n");
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            printf("%d %d %d ", filtro[i][j].px1, filtro[i][j].px2, filtro[i][j].px3);
+        }
+        printf("\n");
+    }
+
+
+    liberar_memoria(imagem, n, 0);
+    liberar_memoria(filtro, n, 0);
 
 
     return 0;
